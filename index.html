@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Ваш Онлайн-Календарь</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="your-logo.png" alt="Логотип">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Услуги</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="search-button">
+            <button>Поиск</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-us">
+            <h2>О нас</h2>
+            <p>Ваш текст о компании и её деятельности.</p>
+            <img src="about-us-image.jpg" alt="Изображение О нас">
+        </section>
+
+        <section class="calendar">
+            <h2>Онлайн-календарь</h2>
+
+
+    <div id="calendar-container"></div>
+
+     <script>
+                // Функция для создания календаря на месяц
+                function createMonthCalendar(year, month) {
+                    const calendarBody = document.createElement("tbody");
+
+                    const firstDay = new Date(year, month, 1);
+                    const lastDay = new Date(year, month + 1, 0);
+
+                    let currentDate = new Date(firstDay);
+                    let row = calendarBody.insertRow();
+
+                    // Добавляем подписи дней недели
+                    const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+
+                    const headerRow = calendarBody.insertRow();
+                    for (let day of daysOfWeek) {
+                        const th = document.createElement("th");
+                        th.textContent = day;
+                        headerRow.appendChild(th);
+                    }
+
+                    // Переходим к первому дню месяца
+                    while (currentDate.getDay() !== 1) {
+                        currentDate.setDate(currentDate.getDate() - 1);
+                    }
+
+                    while (currentDate <= lastDay) {
+                        if (currentDate.getDay() === 1) {
+                            row = calendarBody.insertRow();
+                        }
+
+                        const cell = row.insertCell();
+
+                        // Проверяем, чтобы число не превышало количество дней в месяце
+                        if (currentDate.getMonth() === month) {
+                            cell.textContent = currentDate.getDate();
+
+                            if (currentDate.getDay() === 6 || currentDate.getDay() === 0) {
+                                cell.classList.add("weekend");
+                            }
+
+                            if (currentDate.toDateString() === new Date().toDateString()) {
+                                cell.classList.add("today");
+                            }
+                        }
+
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+
+                    // Возвращаем calendarBody
+                    return calendarBody;
+                }
+
+                // Получаем текущий год и месяц
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear();
+                const currentMonth = currentDate.getMonth();
+
+                // Вызываем функцию для текущего месяца
+                const calendarContainer = document.getElementById("calendar-container");
+                calendarContainer.appendChild(createMonthCalendar(currentYear, currentMonth));
+            </script>
+        </section>
+
+        <section class="services">
+            <h2>Услуги</h2>
+            <ul>
+                <li>Услуга 1</li>
+                <li>Услуга 2</li>
+                <li>Услуга 3</li>
+            </ul>
+        </section>
+
+        <section class="contact">
+            <h2>Контакты</h2>
+            <p>Адрес: Ваш адрес</p>
+            <p>Телефон: Ваш телефон</p>
+            <p>Email: Ваш email</p>
+            <div class="social-media">
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">Instagram</a>
+            </div>
+        </section>
+
+        
+    </main>
+
+
+
+    <footer>
+        <p>&copy; 2023 Ваша Компания. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>
